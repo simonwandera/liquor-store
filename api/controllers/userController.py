@@ -27,8 +27,7 @@ def insert(user):
 def read(id):
     user = User.query.filter_by(id=id)
     if user.username:
-        serialized_user = jsonify(userserializer(user))
-        return serialized_user
+        return user
     else:
         raise Exception("Invalid user id")
 

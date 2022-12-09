@@ -12,6 +12,7 @@ class User(db.Model):
     username = db.Column(db.String(25), nullable=False, unique=True)
     usertype = db.Column(db.String(25), nullable=False, default = 'USER')
     password = db.Column(db.String(25), nullable=False)
+    confirmPassword = ""
     residence = db.Column(db.String(25), nullable=False)
     pick_up_point = db.Column(db.String(50), nullable=False)
 
