@@ -14,8 +14,9 @@ migrate = Migrate()
 def create_app(environment="dev"):
 
     app = Flask(__name__)
+    CORS(app, supports_credentials=True)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:''@127.0.0.1/savings'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['UPLOADED_PHOTOS_DEST'] = './uploads'
@@ -68,16 +69,13 @@ def create_app(environment="dev"):
         return download_image
     
 
-    from .conrollers import authController as auth_blueprint
+    from .rest.auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
-    from .conrollers import productsController as product_blueprint
+    from .rest.product import product as product_blueprint
     app.register_blueprint(product_blueprint)
 
-    from .conrollers import userController as user_blueprint
+    from .rest.user import user as user_blueprint
     app.register_blueprint(user_blueprint)
 
     return app
-
-
-   
