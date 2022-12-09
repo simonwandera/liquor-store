@@ -3,7 +3,9 @@ from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, u
 
 
 from .. import db
-import jwt 
+import jwt
+
+from api.conrollers import authController, userController
 
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')

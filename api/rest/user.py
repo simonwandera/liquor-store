@@ -5,3 +5,5 @@ from .. import db
 user = Blueprint('user', __name__, url_prefix='/user')
 import jwt 
 
+
+from api.conrollers import authController, userController

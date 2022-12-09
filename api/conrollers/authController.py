@@ -1,3 +1,5 @@
+from api.model.models import User
+
 def login():
     return []
 

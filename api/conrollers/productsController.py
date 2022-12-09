@@ -1,3 +1,4 @@
+from api.model.models import Product, Product_type
 
 def insert():
     return 0

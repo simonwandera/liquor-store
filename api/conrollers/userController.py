@@ -1,3 +1,5 @@
+from api.model.models import User
+
 def insert():
     return 0
 
