@@ -6,4 +6,4 @@ user = Blueprint('user', __name__, url_prefix='/user')
 import jwt 
 
 
-from api.conrollers import authController, userController
+from api.controllers import authController, userController

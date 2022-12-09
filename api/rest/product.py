@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, render_template, redirect, url_for, reques
 
 from .. import db
 import jwt
-from api.conrollers import productsController
+from api.controllers import productsController
 
 
 product = Blueprint('product', __name__, url_prefix='/product')

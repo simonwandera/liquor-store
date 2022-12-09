@@ -20,7 +20,7 @@ class Product_type(db.Model):
     category_name = db.Column(db.String(25), nullable=False)
     text_description = db.Column(db.String(25), nullable=False)
     image = db.Column(db.String(25), nullable=False)
-    current_accounts = db.relationship('Products', backref='product_type', lazy=True)
+    current_accounts = db.relationship('Product', backref='product_type', lazy=True)
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
