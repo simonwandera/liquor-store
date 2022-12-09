@@ -1,3 +1,5 @@
 ./.env
 ./p.py
 venv
+__pycache__
+

@@ -2,6 +2,6 @@ from flask import Blueprint, jsonify, render_template, redirect, url_for, reques
 
 from .. import db
 
-auth = Blueprint('product', __name__, url_prefix='/product')
+user = Blueprint('user', __name__, url_prefix='/user')
 import jwt 
 
