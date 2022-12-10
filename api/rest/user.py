@@ -9,11 +9,15 @@ import jwt
 from api.model.models import User
 from api.controllers import authController, userController
 
-@user.route('/', methods=['POST'])
+@user.route('/')
+@user.route('')
 def getAllUsers():
-    return userController.getAllUsers()
+    return jsonify([*map(userController.userserializer, userController.getAllUsers())])
+
+
 
 @user.route('/', methods=['POST'])
+@user.route('', methods=['POST'])
 def register():
     # request_data=json.loads(request.data)
 

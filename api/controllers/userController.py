@@ -1,6 +1,8 @@
 from api.model.models import User
 from flask import jsonify
 from api import db
+from datetime import datetime
+from dateutil import relativedelta
 
 def insert(user):
 
@@ -28,6 +30,8 @@ def insert(user):
         raise Exception("Username already exists")
     if emailExists(user.email):
         raise Exception("Email already exists")
+    if not validAge(user.dob):
+        raise Exception("You are not old enough to purchase alcohal")
 
     db.session.add(user)
     db.session.commit()
@@ -61,9 +65,7 @@ def deleteById(id):
 
 
 def getAllUsers():
-    users = User.query.all()
-    all_users = jsonify([*map(userserializer, users)])
-    return all_users
+    return User.query.all()
 
 
 def userserializer(user):
@@ -72,7 +74,7 @@ def userserializer(user):
         'first_name': user.first_name,
         'other_names': user.other_names,
         'gender': user.gender,
-        'dob': user.dob,
+        'dob': str(user.dob),
         'phone': user.phone,
         'username': user.username,
         'email': user.email,
@@ -94,3 +96,13 @@ def emailExists(email):
         if user.email == email:
             return True
     return False
+
+def validAge(dob):
+    # d = datetime.strptime(dob, '%Y-%m-%d').date()
+    if relativedelta.relativedelta(datetime.now(), dob).years < 18:
+        return False
+
+    return True
+ 
+   
+    
