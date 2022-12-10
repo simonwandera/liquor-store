@@ -98,7 +98,6 @@ def emailExists(email):
     return False
 
 def validAge(dob):
-    # d = datetime.strptime(dob, '%Y-%m-%d').date()
     if relativedelta.relativedelta(datetime.now(), dob).years < 18:
         return False
 

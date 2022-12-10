@@ -12,7 +12,7 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 
 @auth.route('/logout', methods=["POST"])
-# @login_required
+
 def logout():
     # logout_user()
     response = jsonify({'message': "Logged out successfully"})
