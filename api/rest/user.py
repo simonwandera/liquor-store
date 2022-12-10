@@ -17,7 +17,7 @@ def register():
         return {
             "success": False,
             "message": "Please provide post data"
-        }
+        }, 400
 
 
     first_name=request.json.get('firstName', None)
@@ -44,8 +44,7 @@ def register():
             "Message": "User added successfully"
         }
     except Exception as e:
-        print(e)
         return{
             "success": False,
             "message": str(e)
-        }
+        },400
