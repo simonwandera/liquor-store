@@ -5,7 +5,8 @@ from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, u
 from .. import db
 import jwt
 
-from api.controllers import authController, userController
+from api.controllers import authController
+from api.model.models import User
 
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
@@ -21,4 +22,24 @@ def logout():
 
 @auth.route('/login', methods=["POST"])
 def login():
-    return 0
+    if (request.json is None or len(request.json) == 0):
+        return {
+            "success": False,
+            "message": "Please enter username and password to login"
+        }, 400
+
+    username=request.json.get('username', None)
+    password=request.json.get('password', None)
+   
+
+    try:
+        authController.login(username, password)
+        return {
+            "success": True,
+            "Message": "User added successfully"
+        }
+    except Exception as e:
+        return{
+            "success": False,
+            "message": str(e)
+        },400
