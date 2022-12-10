@@ -37,6 +37,7 @@ def insert(user):
 
     user.password = generate_password_hash(user.password, method='sha256')
     user.dob = datetime.strptime(user.dob, '%Y-%m-%d').date()
+    user.gender = user.gender.upper()
 
     db.session.add(user)
     db.session.commit()

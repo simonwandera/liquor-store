@@ -21,6 +21,7 @@ def login(username, password):
 
     responce = userController.userserializer(user)
     responce["token"] = create_access_token(identity=username)
+    responce["success"] = True
     
     return jsonify(responce)
 

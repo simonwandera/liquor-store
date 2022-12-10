@@ -14,7 +14,6 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 
 @auth.route('/logout', methods=["POST"])
-
 def logout():
     # logout_user()
     response = jsonify({'message': "Logged out successfully"})
@@ -40,3 +39,9 @@ def login():
             "success": False,
             "message": str(e)
         },400
+
+@auth.route('/protected', methods=["GET"])
+@jwt_required()
+def protected():
+    return jsonify({'message': "This is a protected route"})
+   

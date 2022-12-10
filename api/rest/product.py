@@ -7,4 +7,3 @@ from api.controllers import productsController
 
 product = Blueprint('product', __name__, url_prefix='/product')
 
-
