@@ -33,9 +33,8 @@ def login():
     password=request.json.get('password', None)
 
     try:
-        user = authController.login(username, password)
-        return user
-        
+        return authController.login(username, password)
+       
     except Exception as e:
         return{
             "success": False,
