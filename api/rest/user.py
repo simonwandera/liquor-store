@@ -24,9 +24,8 @@ def register():
     if (request.json is None or len(request.json) == 0):
         return {
             "success": False,
-            "message": "Please provide post data"
+            "message": "Please provide user data"
         }, 400
-
 
     first_name=request.json.get('firstName', None)
     other_names=request.json.get('lastName', None)
@@ -40,7 +39,7 @@ def register():
     password=request.json.get('password')
     confirmPassword=request.json.get('confirmPassword')
 
-    dob = datetime.strptime(dob, '%Y-%m-%d').date()
+    # dob = datetime.strptime(dob, '%Y-%m-%d').date()
 
     user = User(first_name = first_name, other_names = other_names, phone = phone,
      gender=gender, dob=dob, email=email, username=username, password=password, confirmPassword = confirmPassword)
@@ -49,7 +48,7 @@ def register():
         userController.insert(user)
         return {
             "success": True,
-            "Message": "User added successfully"
+            "message": "User added successfully"
         }
     except Exception as e:
         return{

@@ -33,10 +33,10 @@ def login():
    
 
     try:
-        authController.login(username, password)
+        token = authController.login(username, password)
         return {
             "success": True,
-            "Message": "User added successfully"
+            "token": token
         }
     except Exception as e:
         return{

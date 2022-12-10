@@ -3,6 +3,8 @@ from flask import jsonify
 from api import db
 from datetime import datetime
 from dateutil import relativedelta
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 def insert(user):
 
@@ -32,6 +34,9 @@ def insert(user):
         raise Exception("Email already exists")
     if not validAge(user.dob):
         raise Exception("You are not old enough to purchase alcohal")
+
+    user.password = generate_password_hash(user.password, method='sha256')
+    user.dob = datetime.strptime(user.dob, '%Y-%m-%d').date()
 
     db.session.add(user)
     db.session.commit()
@@ -98,6 +103,7 @@ def emailExists(email):
     return False
 
 def validAge(dob):
+    dob = datetime.strptime(dob, '%Y-%m-%d').date()
     if relativedelta.relativedelta(datetime.now(), dob).years < 18:
         return False
 
