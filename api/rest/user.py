@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request, json
+from datetime import datetime
 
 from .. import db
 
@@ -25,12 +26,15 @@ def register():
 
     dob=request.json.get('dob')
     email=request.json.get('email')
+    phone=request.json.get('phone')
     username = request.json.get('username')
 
     password=request.json.get('password')
     confirmPassword=request.json.get('confirmPassword')
 
-    user = User(first_name = first_name, other_names = other_names,
+    dob = datetime.strptime(dob, '%Y-%m-%d').date()
+
+    user = User(first_name = first_name, other_names = other_names, phone = phone,
      gender=gender, dob=dob, email=email, username=username, password=password, confirmPassword = confirmPassword)
 
     try:

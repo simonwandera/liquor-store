@@ -11,15 +11,19 @@ def insert(user):
     if user.gender == "" or user.gender is None:
         raise Exception("Gender is required" )
     if user.dob == "" or user.dob is None:
-        raise Exception("Date is required")
+        raise Exception("Date of birth is required")
     if user.email == "" or user.email is None:
         raise Exception("Email is required")
+    if user.phone == "" or user.phone is None:
+        raise Exception("Phone Number is required")
     if user.username == "" or user.username is None:
         raise Exception("Username is required")
     if user.password == "" or user.password is None:
         raise Exception("Password is required")
     if user.confirmPassword == "" or user.confirmPassword is None:
-        raise Exception("Password is required")
+        raise Exception("Confirm Password is required")
+    if(user.password != user.confirmPassword):
+        raise Exception("Password mismatch")
 
     db.session.add(user)
     db.session.commit()

@@ -13,8 +13,8 @@ class User(db.Model):
     usertype = db.Column(db.String(25), nullable=False, default = 'USER')
     password = db.Column(db.String(25), nullable=False)
     confirmPassword = ""
-    residence = db.Column(db.String(25), nullable=False)
-    pick_up_point = db.Column(db.String(50), nullable=False)
+    residence = db.Column(db.String(25), nullable=True)
+    pick_up_point = db.Column(db.String(50), nullable=True)
 
 class Product_type(db.Model):
     id = db.Column(db.Integer, primary_key=True)
