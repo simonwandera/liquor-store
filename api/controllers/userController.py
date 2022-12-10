@@ -24,8 +24,10 @@ def insert(user):
         raise Exception("Confirm Password is required")
     if(user.password != user.confirmPassword):
         raise Exception("Password mismatch")
-    if checkUniqueUsername(user.username):
+    if usernameExists(user.username):
         raise Exception("Username already exists")
+    if emailExists(user.email):
+        raise Exception("Email already exists")
 
     db.session.add(user)
     db.session.commit()
@@ -79,9 +81,16 @@ def userserializer(user):
         'pick_up_point': user.pick_up_point
     }
 
-def checkUniqueUsername(username):
+def usernameExists(username):
     users = User.query.all()
     for user in users:
         if user.username == username:
+            return True
+    return False
+
+def emailExists(email):
+    users = User.query.all()
+    for user in users:
+        if user.email == email:
             return True
     return False
