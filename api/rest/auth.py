@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, render_template, redirect, url_for, request, flash, json
+from flask import Blueprint, jsonify, render_template, request
 from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 
 
@@ -7,6 +7,7 @@ import jwt
 
 from api.controllers import authController
 from api.model.models import User
+
 
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
@@ -30,14 +31,11 @@ def login():
 
     username=request.json.get('username', None)
     password=request.json.get('password', None)
-   
 
     try:
-        token = authController.login(username, password)
-        return {
-            "success": True,
-            "token": token
-        }
+        user = authController.login(username, password)
+        return user
+        
     except Exception as e:
         return{
             "success": False,
