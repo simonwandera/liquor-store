@@ -9,7 +9,7 @@ def insert(user):
     if user.other_names == "" or user.other_names is None:
         raise Exception("Last name are required")
     if user.gender == "" or user.gender is None:
-        raise Exception("Gender is required" )
+        raise Exception("Gender is required")
     if user.dob == "" or user.dob is None:
         raise Exception("Date of birth is required")
     if user.email == "" or user.email is None:
@@ -24,6 +24,8 @@ def insert(user):
         raise Exception("Confirm Password is required")
     if(user.password != user.confirmPassword):
         raise Exception("Password mismatch")
+    if checkUniqueUsername(user.username):
+        raise Exception("Username already exists")
 
     db.session.add(user)
     db.session.commit()
@@ -76,3 +78,10 @@ def userserializer(user):
         'residence': user.residence,
         'pick_up_point': user.pick_up_point
     }
+
+def checkUniqueUsername(username):
+    users = User.query.all()
+    for user in users:
+        if user.username == username:
+            return True
+    return False
