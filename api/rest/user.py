@@ -11,9 +11,8 @@ from api.controllers import authController, userController
 @user.route('/register', methods=['POST'])
 def register():
     # request_data=json.loads(request.data)
-    print(type(request.json))
 
-    if len(request.json):
+    if (request.json is None or len(request.json) == 0):
         return {
             "success": False,
             "message": "Please provide post data"
@@ -22,14 +21,14 @@ def register():
 
     first_name=request.json.get('firstName', None)
     other_names=request.json.get('lastName', None)
-    gender = request.json['gender']
+    gender = request.json.get('gender')
 
-    dob=request.json['dob']
-    email=request.json['email']
-    username = request.json['username']
+    dob=request.json.get('dob')
+    email=request.json.get('email')
+    username = request.json.get('username')
 
-    password=request.json['password']
-    confirmPassword=request.json['confirmPassword']
+    password=request.json.get('password')
+    confirmPassword=request.json.get('confirmPassword')
 
     user = User(first_name = first_name, other_names = other_names,
      gender=gender, dob=dob, email=email, username=username, password=password, confirmPassword = confirmPassword)
@@ -41,7 +40,8 @@ def register():
             "Message": "User added successfully"
         }
     except Exception as e:
+        print(e)
         return{
             "success": False,
-            "message": e
+            "message": str(e)
         }

@@ -4,21 +4,23 @@ from api import db
 
 def insert(user):
 
-    if (user.first_name == ""):
+    if (user.first_name == "" or user.first_name is None):
         raise Exception("First name is required")
-    if user.other_names == "":
-        raise Exception("Other names are required")
-    if user.gender == "":
+    if user.other_names == "" or user.other_names is None:
+        raise Exception("Last name are required")
+    if user.gender == "" or user.gender is None:
         raise Exception("Gender is required" )
-    if user.dob == "":
+    if user.dob == "" or user.dob is None:
         raise Exception("Date is required")
-    if user.email == "":
+    if user.email == "" or user.email is None:
         raise Exception("Email is required")
-    if user.username == "":
+    if user.username == "" or user.username is None:
         raise Exception("Username is required")
-    if user.password == "":
+    if user.password == "" or user.password is None:
         raise Exception("Password is required")
-    
+    if user.confirmPassword == "" or user.confirmPassword is None:
+        raise Exception("Password is required")
+
     db.session.add(user)
     db.session.commit()
     return True
