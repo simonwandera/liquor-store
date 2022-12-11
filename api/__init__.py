@@ -78,4 +78,8 @@ def create_app(environment="dev"):
     from .rest.user import user as user_blueprint
     app.register_blueprint(user_blueprint)
 
+    from .rest.productType import productType as product_type_blueprint
+    app.register_blueprint(product_type_blueprint)
+
+
     return app
