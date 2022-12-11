@@ -23,7 +23,7 @@ def create_app(environment="dev"):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(APP_ROOT, "uploads")
+    app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(APP_ROOT, "uploads/")
     app.config['JWT_SECRET_KEY'] = 'Please remember to change me'
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
 
@@ -64,7 +64,7 @@ def create_app(environment="dev"):
        
         # download_image = send_from_directory(app.config['UPLOADED_PHOTOS_DEST'],filename)
 
-        return send_file(app.config['UPLOADED_PHOTOS_DEST'] +"/"+ filename)
+        return send_file(app.config['UPLOADED_PHOTOS_DEST'] + filename)
     
 
     from .rest.auth import auth as auth_blueprint

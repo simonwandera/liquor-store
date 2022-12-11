@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, send_from_directory
+from flask import Blueprint, jsonify, request, send_file
 from .. import db
 import jwt, os
 from api.controllers import productTypeController
@@ -52,14 +52,4 @@ def upload():
 def uploaded(filename):
     file = secure_filename(filename)
 
-    print(filename)
-
-    imageList = os.listdir(app.config['UPLOADED_PHOTOS_DEST'])
-    print("\n\n")
-
-
-    print(imageList)
-
-    # download_image = send_from_directory(app.config['UPLOADED_PHOTOS_DEST'],file, as_attachment=True)
-    # print("\n\nWe are reporting from here \n")
-    return app.send_static_file(file)
+    return send_file(app.config['UPLOADED_PHOTOS_DEST'] +"/"+ filename)
