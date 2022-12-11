@@ -58,15 +58,6 @@ def create_app(environment="dev"):
         return download_image
 
 
-    @app.route('/api/uploads/<filename>')
-    def uploaded_file(filename):
-        print("Something here")
-       
-        # download_image = send_from_directory(app.config['UPLOADED_PHOTOS_DEST'],filename)
-
-        return send_file(app.config['UPLOADED_PHOTOS_DEST'] + filename)
-    
-
     from .rest.auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 

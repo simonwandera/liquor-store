@@ -15,4 +15,3 @@ def deleteById():
 def getAllProducts():
     return 0
 
-
