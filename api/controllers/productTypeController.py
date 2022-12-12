@@ -20,6 +20,14 @@ def update():
 def deleteById():
     return 0
 
-def getAllProducts():
-    return 0
+def getAllProductsTypes():
+    return Product_type.query.all()
+
+
+def productTypeSerializer(productType):
+    return{
+        "category_name": productType.category_name,
+        "text_description": productType.text_description,
+        "image": productType.image
+    }
 

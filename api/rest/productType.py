@@ -53,6 +53,10 @@ def addProductType():
             "msg": str(e)
         },400
 
+@productType.route('/')
+@productType.route('')
+def displayProductsTypes():
+    return jsonify([*map(productTypeController.productTypeSerializer, productTypeController.getAllProductsTypes())])
 
 
 @productType.route('/uploads/<filename>', methods=["GET"])
