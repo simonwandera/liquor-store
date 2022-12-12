@@ -15,6 +15,12 @@ product = Blueprint('product', __name__, url_prefix='/product')
 from api.model.models import Product
 from api.controllers import productsController
 
+@product.route('/')
+@product.route('')
+def displayProducts():
+    return jsonify([*map(productsController.productSerializer, productsController.getAllProducts())])
+
+
 @product.route('/<id>')
 @product.route('<id>')
 def getProductType(id):
