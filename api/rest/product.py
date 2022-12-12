@@ -7,13 +7,12 @@ import jwt
 
 from api import create_app
 
-app = create_app()
-
 
 product = Blueprint('product', __name__, url_prefix='/product')
 
 from api.model.models import Product
 from api.controllers import productsController, utilController
+app = create_app()
 
 @product.route('/', methods=["POST"])
 @product.route('', methods=["POST"] )

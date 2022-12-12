@@ -6,16 +6,14 @@ def insert(product_type):
         raise Exception("category name is required")
     if product_type.text_description == "" or product_type.text_description is None:
         raise Exception("category description is required")
-    
-    
 
     db.session.add(product_type)
     db.session.commit()
     return True
 
 def read(id):
-    category = Product_type.query.filter_by(id=id)
-    if category.category_name:
+    category = Product_type.query.filter_by(id=id).first()
+    if category:
         return category
     else:
         raise Exception("Invalid category id")

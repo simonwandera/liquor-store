@@ -58,7 +58,8 @@ def displayProductsTypes():
 def getProductType(id):
     try:
         product_type = productTypeController.read(id)
-        return productTypeController.productTypeSerializer(productType)
+        print(product_type)
+        return productTypeController.productTypeSerializer(product_type)
 
     except Exception as e:
         return{

@@ -21,8 +21,8 @@ def insert(product):
     return True
 
 def read(id):
-    product = Product.query.filter_by(id=id)
-    if product.name:
+    product = Product.query.filter_by(id=id).first()
+    if product:
         return product
     else:
         raise Exception("Invalid product")
