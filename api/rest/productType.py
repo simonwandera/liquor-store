@@ -58,9 +58,23 @@ def addProductType():
 def displayProductsTypes():
     return jsonify([*map(productTypeController.productTypeSerializer, productTypeController.getAllProductsTypes())])
 
+@productType.route('/<id>')
+@productType.route('<id>')
+def getProductType(id):
+    try:
+        product_type = productTypeController.read(id)
+        return productTypeController.productTypeSerializer(productType)
+
+    except Exception as e:
+        return{
+            "success": False,
+            "msg": str(e)
+        },400
+
+
 
 @productType.route('/uploads/<filename>', methods=["GET"])
 def uploaded(filename):
     file = secure_filename(filename)
 
-    return send_file(app.config['UPLOADED_PHOTOS_DEST'] +"/"+ filename)
+    return send_file(app.config['UPLOADED_PHOTOS_DEST'] + filename)
