@@ -21,11 +21,6 @@ def allowed_file(filename):
 @productType.route('/', methods=["POST"])
 @productType.route('', methods=["POST"] )
 def addProductType():
-    # if (request.json is None or len(request.json) == 0):
-    #     return {
-    #         "success": False,
-    #         "msg": "No data was sent"
-    #     }, 400
 
     if 'file' not in request.files:
         return{
