@@ -11,15 +11,11 @@ def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-def uploadFile(request):
+def uploadImage(file):
 
     if not os.path.isdir(app.config['UPLOADED_PHOTOS_DEST']):
         os.mkdir(app.config['UPLOADED_PHOTOS_DEST'])
 
-    if 'file' not in request.files:
-        raise Exception("No file part in the request")
-
-    file = request.files['file']
 
     if file.filename == '':
         raise Exception('No file selected for uploading')

@@ -1,7 +1,15 @@
 from api.model.models import Product, Product_type
+from api import db
 
-def insert():
-    return 0
+def insert(product_type):
+    if (product_type.category_name == "" or product_type.category_name is None):
+        raise Exception("Product name is required")
+    if product_type.text_description == "" or product_type.text_description is None:
+        raise Exception("Product description is required")
+
+    db.session.add(product_type)
+    db.session.commit()
+    return True
 
 def read(id):
     return 0
