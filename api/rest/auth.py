@@ -9,7 +9,6 @@ from api.controllers import authController
 from api.model.models import User
 
 
-
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 
