@@ -43,8 +43,6 @@ def create_app(environment="dev"):
     def index():
         return app.send_static_file('index.html')
 
-    
-  
 
     @app.route('/upload/<filename>', methods=["GET"])
     def uploaded(filename):

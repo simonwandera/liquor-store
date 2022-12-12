@@ -53,11 +53,11 @@ def read(id):
 
 def update(user):
     try:
-        db.session.add(user)
+        db.session.update(user)
         db.session.commit()
         return True
     except:
-        raise Exception("Invalid user id")
+        raise Exception("Invalid category id")
 
 
 def deleteById(id):
