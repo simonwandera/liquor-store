@@ -15,7 +15,7 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 @auth.route('/logout', methods=["POST"])
 def logout():
     # logout_user()
-    response = jsonify({'message': "Logged out successfully"})
+    response = jsonify({'msg': "Logged out successfully"})
     unset_jwt_cookies(response)
     return response
 
@@ -24,7 +24,7 @@ def login():
     if (request.json is None or len(request.json) == 0):
         return {
             "success": False,
-            "message": "Please enter username and password to login"
+            "msg": "Please enter username and password to login"
         }, 400
 
     username=request.json.get('username', None)
@@ -36,11 +36,11 @@ def login():
     except Exception as e:
         return{
             "success": False,
-            "message": str(e)
+            "msg": str(e)
         },400
 
 @auth.route('/protected', methods=["GET"])
 @jwt_required()
 def protected():
-    return jsonify({'message': "This is a protected route"})
+    return jsonify({'msg': "This is a protected route"})
    

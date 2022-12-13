@@ -24,7 +24,7 @@ def register():
     if (request.json is None or len(request.json) == 0):
         return {
             "success": False,
-            "message": "Please provide user data"
+            "msg": "Please provide user data"
         }, 400
 
     first_name=request.json.get('firstName', None)
@@ -48,10 +48,10 @@ def register():
         userController.insert(user)
         return {
             "success": True,
-            "message": "User added successfully"
+            "msg": "User added successfully"
         }
     except Exception as e:
         return{
             "success": False,
-            "message": str(e)
+            "msg": str(e)
         },400
