@@ -1,17 +1,29 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token,get_jwt, get_jwt_identity, unset_jwt_cookies, JWTManager
-from api.controllers import userController
+from api.controllers import userController, cartController
 from flask import jsonify
-from api.model.models import Product_cart
+from api.model.models import Product_cart, Cart
 from api import db
 
 
 def insert(product_cart):
 
-    if product_cart.cart_is == "" or product_cart.cart_id is None:
-        raise Exception("Cart id is required")
-    if product_cart.cart_is == "" or product_cart.cart_id is None:
+   
+    if product_cart.product_id == "" or product_cart.product_id is None:
         raise Exception("Product id is required")
+    if product_cart.quantity == "" or product_cart.quantity is None or product_cart.quantity == 0:
+        raise Exception("Product quantity should be greater than 0")
+
+    active_carts = cartController.getActiveUserCarts(get_jwt_identity())
+
+    if len(active_carts) > 0:
+        cart_x = active_carts[0]
+    else:
+        new_cart = Cart(owner_id=get_jwt_identity())
+        cartController.insert(new_cart)
+        cart_x = cartController.getActiveUserCarts(get_jwt_identity())[0]
+
+    product_cart.cart_id = cart_x.id
 
     db.session.add(product_cart)
     db.session.commit()
@@ -41,15 +53,16 @@ def deleteById(id):
     else:
         raise Exception("Invalid product_cart id")
 
-def getAllproduct_cart():
+def getAllproductCarts():
     return Product_cart.query.all()
 
 def getProduct_cartByCart(cart_id):
     return Product_cart.query.filter_by(cart_id=cart_id).all()
 
-def cartSerializer(product_cart):
+def productCartSerializer(product_cart):
     return{
         "id": product_cart.id,
         "cart_id": product_cart.cart_id,
-        "product_id": product_cart.product_id
+        "product_id": product_cart.product_id,
+        "quatity": product_cart.quantity
     }

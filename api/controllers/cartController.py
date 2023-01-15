@@ -22,6 +22,20 @@ def read(id):
     else:
         raise Exception("Invalid cart")
 
+def getAllUserCarts(userId):
+    cart = Cart.query.filter_by(owner_id=userId).all()
+    if cart:
+        return cart
+    else:
+        raise Exception("Invalid userId")
+
+def getActiveUserCarts(userId):
+    cart = Cart.query.filter(owner_id=userId, status = "ACTIVE").first()
+    if cart:
+        return cart
+    else:
+        raise Exception("Invalid userId")
+
 def update(cart):
     try:
         db.session.update(cart)

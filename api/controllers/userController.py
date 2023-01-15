@@ -45,11 +45,19 @@ def insert(user):
 
 
 def read(id):
-    user = User.query.filter_by(id=id)
+    user = User.query.filter_by(id=id).first()
     if user.username:
         return user
     else:
         raise Exception("Invalid user id")
+
+# def getUserByUsername(username):
+#     user = User.query.filter_by(username=username).first()
+#     if user.username:
+#         return user
+#     else:
+#         raise Exception("Invalid username")
+
 
 def update(user):
     try:

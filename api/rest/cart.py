@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask import Blueprint, jsonify, request, send_file
 from werkzeug.utils import secure_filename
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from .. import db
 import jwt
@@ -8,26 +9,24 @@ import jwt
 from api import create_app
 
 
-product = Blueprint('cart', __name__, url_prefix='/cart')
+cart = Blueprint('cart', __name__, url_prefix='/cart')
 
-from api.model.models import Cart
-from api.controllers import cartController
+from api.model.models import Cart, Product_cart
+from api.controllers import cartController, userController
 app = create_app()
 
-@product.route('/', methods=["POST"])
-@product.route('', methods=["POST"] )
-def addProduct():
+@cart.route('/', methods=["POST"])
+@cart.route('', methods=["POST"] )
+def addCart():
 
-    owner_id = request.form.get('category_id', None)
     
-
-    cart_x = Cart(owner_id=owner_id)
+    cart_x = Cart(owner_id=get_jwt_identity())
 
     try:
         cartController.insert(cart_x)
         return {
             "success": True,
-            "msg": "product added successfully"
+            "msg": "cart created successfully"
         }
 
     except Exception as e:
@@ -36,14 +35,14 @@ def addProduct():
             "msg": str(e)
         },400
 
-@product.route('/')
-@product.route('')
+@cart.route('/')
+@cart.route('')
 def displayCarts():
     return jsonify([*map(cartController.cartSerializer, cartController.getAllcarts())])
 
 
-@product.route('/<id>')
-@product.route('<id>')
+@cart.route('/<id>')
+@cart.route('<id>')
 def getCarts(id):
     try:
         cart = cartController.read(id)

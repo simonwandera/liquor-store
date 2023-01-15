@@ -17,10 +17,10 @@ def login(username, password):
     if not user or not check_password_hash(user.password, password):
         raise Exception('Please check your login details and try again.')
 
-    userController.userserializer(user)["token"] = create_access_token(identity=username)
+    # userController.userserializer(user)["token"] = create_access_token(identity=user.id)
 
     responce = userController.userserializer(user)
-    responce["token"] = create_access_token(identity=username)
+    responce["token"] = create_access_token(identity=user.id)
     responce["success"] = True
     
     return jsonify(responce)
