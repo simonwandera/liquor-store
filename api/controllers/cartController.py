@@ -32,8 +32,6 @@ def getAllUserCarts(userId):
 def getActiveUserCart(userId):
     cart = Cart.query.filter_by(owner_id=userId, status = "ACTIVE").first()
 
-    print("reached here")
-
     if cart:
         return cart
     else:

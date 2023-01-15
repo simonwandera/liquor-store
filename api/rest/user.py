@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request, json
 from datetime import datetime
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from .. import db
 
@@ -7,7 +8,7 @@ user = Blueprint('user', __name__, url_prefix='/user')
 import jwt 
 
 from api.model.models import User
-from api.controllers import authController, userController
+from api.controllers import cartController, userController
 
 @user.route('/')
 @user.route('')
@@ -15,6 +16,14 @@ def getAllUsers():
     return jsonify([*map(userController.userserializer, userController.getAllUsers())])
 
 
+
+@user.route('/cart', methods=['GET'])
+@jwt_required()
+def userCart():
+
+    cart = cartController.getActiveUserCart(get_jwt_identity())
+    responce = cartController.cartSerializer(cart)
+    return jsonify(responce)
 
 
 @user.route('/', methods=['POST'])

@@ -19,7 +19,6 @@ app = create_app()
 @cart.route('', methods=["POST"] )
 def addCart():
 
-    
     cart_x = Cart(owner_id=get_jwt_identity())
 
     try:
