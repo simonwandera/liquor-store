@@ -32,3 +32,16 @@ class Product(db.Model):
     image = db.Column(db.String(25), nullable=False)
     buy_price = db.Column(db.Integer)
     quantity_in_stock = db.Column(db.Integer, default = 0)
+    cart = db.relationship('Product_cart', backref='product', lazy=True)
+
+class Cart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    owner_id = db.Column(db.String(25), nullable=False)
+    status = db.Column(db.String(25), nullable=False)
+    cart = db.relationship('Product_cart', backref='cart', lazy=True)
+
+class Product_cart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cart_id  = db.Column(db.ForeignKey('cart.id'))
+    product_id = db.Column(db.ForeignKey('product.id'))
+    quantity = db.Column(db.Integer)
