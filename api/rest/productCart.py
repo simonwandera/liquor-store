@@ -20,6 +20,7 @@ def addToCart():
 
     quantity = request.json.get('quantity')
     product_id = request.json.get('product_id')
+    user = userController.read()
 
     product_cart = Product_cart(product_id = product_id, quantity=quantity)
 
@@ -40,7 +41,30 @@ def addToCart():
 @jwt_required()
 def remove_from_cart():
 
-    return True
+    product_id = request.json.get('product_id')
+    active_cart = cartController.getActiveUserCart(get_jwt_identity())
+    product_cart = Product_cart.query.filter_by(cart_id = active_cart.id, product_id = product_id).first()
+
+    
+    if (product_cart is None) or (product_cart.id is None):
+        
+        return {
+            "success": False,
+            "msg": "Product not in cart"
+        }
+
+    try:
+        productCartController.deleteById(product_cart.id)
+        return {
+            "success": True,
+            "msg": "product removed from cart successfully"
+        }
+
+    except Exception as e:
+        return{
+            "success": False,
+            "msg": str(e)
+        },400
 
 @productCart.route('/')
 @productCart.route('')

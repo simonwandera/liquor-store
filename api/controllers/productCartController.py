@@ -14,9 +14,7 @@ def insert(product_cart):
     if product_cart.quantity == "" or product_cart.quantity is None or product_cart.quantity == 0:
         raise Exception("Product quantity should be greater than 0")
 
-
     active_cart = cartController.getActiveUserCart(get_jwt_identity())
-
 
     if active_cart is None:
                 
