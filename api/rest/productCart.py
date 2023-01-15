@@ -20,7 +20,6 @@ def addToCart():
 
     quantity = request.json.get('quantity')
     product_id = request.json.get('product_id')
-    user = userController.read()
 
     product_cart = Product_cart(product_id = product_id, quantity=quantity)
 
@@ -74,7 +73,7 @@ def displayProductCarts():
 
 @productCart.route('/<id>')
 @productCart.route('<id>')
-def getProductCarts(id):
+def getProductCart(id):
     try:
         productCart = productCartController.read(id)
         return productCartController.productCartSerializer(productCart)

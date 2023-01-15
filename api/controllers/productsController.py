@@ -23,7 +23,9 @@ def insert(product):
     return True
 
 def read(id):
+    
     product = Product.query.filter_by(id=id).first()
+    
     if product:
         return product
     else:

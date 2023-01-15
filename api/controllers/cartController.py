@@ -1,8 +1,8 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token,get_jwt, get_jwt_identity, unset_jwt_cookies, JWTManager
-from api.controllers import userController
+from api.controllers import userController, productsController
 from flask import jsonify
-from api.model.models import Cart
+from api.model.models import Cart, Product_cart
 from api import db
 
 
@@ -36,6 +36,26 @@ def getActiveUserCart(userId):
         return cart
     else:
         return None;
+
+def getItemsInCart(userId):
+    cart = getActiveUserCart(userId)
+    try:
+        product_carts = Product_cart.query.filter_by(cart_id=cart.id).all()
+        # return [productsController.read(product_cart.product_id) for product_cart in product_carts]
+
+        print(type(product_carts))
+
+        products = []
+
+        for product_cart in product_carts:
+            product = productsController.read(product_cart.product_id)
+            products.append(product)
+            return products
+
+    except:
+        raise Exception("Something went wrong")
+        
+
 
 def update(cart):
     try:

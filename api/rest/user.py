@@ -8,7 +8,7 @@ user = Blueprint('user', __name__, url_prefix='/user')
 import jwt 
 
 from api.model.models import User
-from api.controllers import cartController, userController
+from api.controllers import cartController, userController,productsController
 
 @user.route('/')
 @user.route('')
@@ -20,10 +20,21 @@ def getAllUsers():
 @user.route('/cart', methods=['GET'])
 @jwt_required()
 def userCart():
+    return jsonify(cartController.cartSerializer(cartController.getActiveUserCart(get_jwt_identity())))
 
-    cart = cartController.getActiveUserCart(get_jwt_identity())
-    responce = cartController.cartSerializer(cart)
-    return jsonify(responce)
+@user.route('/items_in_cart', methods=['GET'])
+@jwt_required()
+def items_in_cart():
+    
+    try:
+        return jsonify([*map(productsController.productSerializer, cartController.getItemsInCart(get_jwt_identity()))])
+
+    except Exception as e:
+        return{
+            "success": False,
+            "msg": str(e)
+        },400
+
 
 
 @user.route('/', methods=['POST'])
