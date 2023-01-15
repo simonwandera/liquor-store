@@ -13,6 +13,8 @@ def insert(product):
         raise Exception("html description is required")
     if product.buy_price == "" or product.buy_price is None:
         raise Exception("Buying price is required")
+    if product.image == "" or product.image is None:
+        raise Exception("Product image is required")
     if product.quantity_in_stock == "" or product.quantity_in_stock is None:
         raise Exception("Quantity in stock is required")
 
