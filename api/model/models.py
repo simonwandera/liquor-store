@@ -37,7 +37,7 @@ class Product(db.Model):
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.String(25), nullable=False)
-    status = db.Column(db.String(25), nullable=False)
+    status = db.Column(db.String(25), nullable=False, default = 'ACTIVE')
     cart = db.relationship('Product_cart', backref='cart', lazy=True)
 
 class Product_cart(db.Model):
