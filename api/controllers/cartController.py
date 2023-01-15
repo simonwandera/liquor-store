@@ -1,4 +1,3 @@
-from api.model.models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token,get_jwt, get_jwt_identity, unset_jwt_cookies, JWTManager
 from api.controllers import userController
