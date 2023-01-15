@@ -14,8 +14,7 @@ from api.model.models import Product_cart
 from api.controllers import productCartController, userController, cartController
 app = create_app()
 
-@productCart.route('/', methods=["POST"])
-@productCart.route('', methods=["POST"] )
+@productCart.route('/add_to_cart', methods=["POST"])
 @jwt_required()
 def addToCart():
 
@@ -36,6 +35,12 @@ def addToCart():
             "success": False,
             "msg": str(e)
         },400
+
+@productCart.route('/remove_from_cart', methods=["POST"])
+@jwt_required()
+def remove_from_cart():
+
+    return True
 
 @productCart.route('/')
 @productCart.route('')

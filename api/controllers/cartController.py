@@ -29,12 +29,15 @@ def getAllUserCarts(userId):
     else:
         raise Exception("Invalid userId")
 
-def getActiveUserCarts(userId):
-    cart = Cart.query.filter(owner_id=userId, status = "ACTIVE").first()
+def getActiveUserCart(userId):
+    cart = Cart.query.filter_by(owner_id=userId, status = "ACTIVE").first()
+
+    print("reached here")
+
     if cart:
         return cart
     else:
-        raise Exception("Invalid userId")
+        return None;
 
 def update(cart):
     try:

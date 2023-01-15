@@ -14,16 +14,17 @@ def insert(product_cart):
     if product_cart.quantity == "" or product_cart.quantity is None or product_cart.quantity == 0:
         raise Exception("Product quantity should be greater than 0")
 
-    active_carts = cartController.getActiveUserCarts(get_jwt_identity())
 
-    if len(active_carts) > 0:
-        cart_x = active_carts[0]
-    else:
+    active_cart = cartController.getActiveUserCart(get_jwt_identity())
+
+
+    if active_cart is None:
+                
         new_cart = Cart(owner_id=get_jwt_identity())
         cartController.insert(new_cart)
-        cart_x = cartController.getActiveUserCarts(get_jwt_identity())[0]
+        active_cart = cartController.getActiveUserCart(get_jwt_identity())
 
-    product_cart.cart_id = cart_x.id
+    product_cart.cart_id = active_cart.id
 
     db.session.add(product_cart)
     db.session.commit()
