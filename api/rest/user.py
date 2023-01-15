@@ -16,6 +16,7 @@ def getAllUsers():
 
 
 
+
 @user.route('/', methods=['POST'])
 @user.route('', methods=['POST'])
 def register():

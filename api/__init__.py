@@ -68,5 +68,15 @@ def create_app(environment="dev"):
     from .rest.productType import productType as product_type_blueprint
     app.register_blueprint(product_type_blueprint)
 
+    from .rest.cart import cart as cart_blueprint
+    app.register_blueprint(cart_blueprint)
+
+    from .rest.productCart import productCart as product_cart_blueprint
+    app.register_blueprint(product_cart_blueprint)
+
+
+    
+
+
 
     return app

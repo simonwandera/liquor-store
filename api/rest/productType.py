@@ -11,31 +11,18 @@ from api.model.models import Product_type
 from api.controllers import productTypeController, utilController
 app = create_app()
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-
-
-def allowed_file(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 
 @productType.route('/', methods=["POST"])
 @productType.route('', methods=["POST"] )
 def addProductType():
 
-    if 'file' not in request.files:
-        return{
-            "success": False,
-            "msg":"No file part in the request"   
-        }
+    category_name = request.json.get('category_name', None)
+    text_description=request.json.get('text_description', None)
+    imageURL = request.json.get('imageURL', None)
 
-    category_name = request.form.get('category_name', None)
-    text_description=request.form.get('text_description', None)
-    image = request.files['file']
-
-    product_type = Product_type(category_name=category_name, text_description=text_description, image=image.filename)
+    product_type = Product_type(category_name=category_name, text_description=text_description, image=imageURL)
 
     try:
-        utilController.uploadImage(image)
         productTypeController.insert(product_type)
         return {
             "success": True,
@@ -67,10 +54,3 @@ def getProductType(id):
             "msg": str(e)
         },400
 
-
-
-@productType.route('/uploads/<filename>', methods=["GET"])
-def uploaded(filename):
-    file = secure_filename(filename)
-
-    return send_file(app.config['UPLOADED_PHOTOS_DEST'] + filename)

@@ -15,7 +15,7 @@ from api.controllers import productsController, utilController
 app = create_app()
 
 @product.route('/', methods=["POST"])
-@product.route('', methods=["POST"] )
+@product.route('', methods=["POST"])
 def addProduct():
 
     category_id = request.json.get('category_id', None)

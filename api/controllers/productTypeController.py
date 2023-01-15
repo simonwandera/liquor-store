@@ -6,6 +6,8 @@ def insert(product_type):
         raise Exception("category name is required")
     if product_type.text_description == "" or product_type.text_description is None:
         raise Exception("category description is required")
+    if product_type.image == "" or product_type.image is None:
+        raise Exception("Image is required")
 
     db.session.add(product_type)
     db.session.commit()
