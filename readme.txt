@@ -55,3 +55,37 @@ POST
 
 http://127.0.0.1:5000/productCart/add_to_cart
 POST
+
+
+-------------------
+
+{
+"product_id":"1"
+}
+
+http://127.0.0.1:5000/productCart/remove_from_cart
+
+POST
+
+
+http://127.0.0.1:5000/user/items_in_cart
+
+GET
+token required
+
+-------------------------------------------
+
+http://127.0.0.1:5000/user/cart
+GET 
+Token required
+
+
+
+
+
+
+
+
+
+http://127.0.0.1:5000/user/items_in_cart
+token require

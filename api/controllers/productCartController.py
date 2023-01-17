@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token,get_jwt, get_jwt_identity, unset_jwt_cookies, JWTManager
-from api.controllers import userController, cartController
+from api.controllers import userController, cartController, productsController
 from flask import jsonify
 from api.model.models import Product_cart, Cart
 from api import db
@@ -63,5 +63,7 @@ def productCartSerializer(product_cart):
         "id": product_cart.id,
         "cart_id": product_cart.cart_id,
         "product_id": product_cart.product_id,
-        "quatity": product_cart.quantity
+        "product": productsController.productSerializer(productsController.read(product_cart.product_id)),
+        "quatity": product_cart.quantity,
+        "total": int(product_cart.quantity) * int(productsController.read(product_cart.product_id).buy_price)
     }

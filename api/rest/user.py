@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, json
+from flask import Blueprint, jsonify, request
 from datetime import datetime
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -8,13 +8,12 @@ user = Blueprint('user', __name__, url_prefix='/user')
 import jwt 
 
 from api.model.models import User
-from api.controllers import cartController, userController,productsController
+from api.controllers import cartController, userController,productsController, productCartController
 
 @user.route('/')
 @user.route('')
 def getAllUsers():
     return jsonify([*map(userController.userserializer, userController.getAllUsers())])
-
 
 
 @user.route('/cart', methods=['GET'])
@@ -27,7 +26,7 @@ def userCart():
 def items_in_cart():
     
     try:
-        return jsonify([*map(productsController.productSerializer, cartController.getItemsInCart(get_jwt_identity()))])
+        return jsonify([*map(productCartController.productCartSerializer, cartController.getItemsInCart(get_jwt_identity()))])
 
     except Exception as e:
         return{
@@ -36,11 +35,9 @@ def items_in_cart():
         },400
 
 
-
 @user.route('/', methods=['POST'])
 @user.route('', methods=['POST'])
 def register():
-    # request_data=json.loads(request.data)
 
     if (request.json is None or len(request.json) == 0):
         return {

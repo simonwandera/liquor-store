@@ -21,6 +21,18 @@ def addToCart():
     quantity = request.json.get('quantity')
     product_id = request.json.get('product_id')
 
+
+    products_in_cart = Product_cart.query.filter_by(cart_id = cartController.getActiveUserCart(get_jwt_identity()).id).all()
+
+
+    for i in products_in_cart:
+        if i.product_id == product_id:
+            return {
+                "success": False,
+                "msg": "item already in cart"
+            }, 401
+
+
     product_cart = Product_cart(product_id = product_id, quantity=quantity)
 
     try:
@@ -35,6 +47,7 @@ def addToCart():
             "success": False,
             "msg": str(e)
         },400
+
 
 @productCart.route('/remove_from_cart', methods=["POST"])
 @jwt_required()
@@ -83,5 +96,7 @@ def getProductCart(id):
             "success": False,
             "msg": str(e)
         },400
+
+
     
 

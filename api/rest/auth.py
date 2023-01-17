@@ -12,7 +12,8 @@ from api.model.models import User
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 
-@auth.route('/logout', methods=["POST"])
+@auth.route('/logout', methods=["GET"])
+@jwt_required()
 def logout():
     # logout_user()
     response = jsonify({'msg': "Logged out successfully"})
