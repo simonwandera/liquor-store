@@ -19,7 +19,20 @@ def getAllUsers():
 @user.route('/cart', methods=['GET'])
 @jwt_required()
 def userCart():
-    return jsonify(cartController.cartSerializer(cartController.getActiveUserCart(get_jwt_identity())))
+
+    try:
+
+        m = cartController.getActiveUserCart(get_jwt_identity())
+        if m is None:
+            return {"msg": "You do not have an cart. Please click add to cart to create a new cart "}
+        
+        return jsonify(cartController.cartSerializer(m))
+
+    except Exception as e:
+         return{
+            "success": False,
+            "msg": str(e)
+        },400
 
 @user.route('/items_in_cart', methods=['GET'])
 @jwt_required()

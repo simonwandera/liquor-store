@@ -117,6 +117,3 @@ def validAge(dob):
         return False
 
     return True
- 
-   
-    

@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token,get_jwt, get_jwt_identity, unset_jwt_cookies, JWTManager
-from api.controllers import userController, productsController, productCartController
+from api.controllers import userController, productsController, productCartController, cartController
 from flask import jsonify
 from api.model.models import Cart, Product_cart
 from api import db
@@ -32,10 +32,8 @@ def getAllUserCarts(userId):
 def getActiveUserCart(userId):
     cart = Cart.query.filter_by(owner_id=userId, status = "ACTIVE").first()
 
-    if cart:
-        return cart
-    else:
-        return None;
+    return cart
+        
 
 def getItemsInCart(userId):
     cart = getActiveUserCart(userId)
@@ -46,7 +44,7 @@ def getItemsInCart(userId):
         return product_carts
 
     except:
-        raise Exception("Something went wrong")
+        raise Exception("No active cart or invalid cart number")
         
 
 
@@ -76,3 +74,32 @@ def cartSerializer(cart):
         "owner_id": cart.owner_id,
         "status": cart.status
     }
+
+def check_product_not_cart(product_id, user_id):
+
+    try:
+        cart = cartController.getActiveUserCart(get_jwt_identity())
+
+
+        if cart is None:
+            return {"msg":"cart not available"}
+
+        products_in_cart = Product_cart.query.filter_by(cart_id = cart.id).all()
+
+        print("Where are you now")
+
+
+        for i in products_in_cart:
+            if i.product_id == product_id:
+                return False
+
+        return True
+
+    except Exception as e:
+
+        print(str(e))
+        
+        return False
+
+
+    
