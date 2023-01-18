@@ -96,10 +96,19 @@ def check_product_not_cart(product_id, user_id):
         return True
 
     except Exception as e:
-
-        print(str(e))
         
         return False
 
+def get_cart_total(user_id):
 
-    
+    cart = cartController.getActiveUserCart(user_id)
+
+    user_items = Product_cart.query.filter_by(cart_id = cart.id).all()
+
+    total = 0
+
+    for item in user_items:
+        price = productsController.read(item.product_id).buy_price
+        total = total + price
+
+    return total

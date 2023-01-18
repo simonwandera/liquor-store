@@ -47,6 +47,14 @@ def items_in_cart():
             "msg": str(e)
         },400
 
+@user.route('/cart_total', methods=['GET'])
+@jwt_required()
+def cartTotal():
+
+    total = cartController.get_cart_total(get_jwt_identity())
+    
+    return {"success": True, "total": total}
+
 
 @user.route('/', methods=['POST'])
 @user.route('', methods=['POST'])
