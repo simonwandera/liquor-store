@@ -51,6 +51,9 @@ def deleteById(id):
 def getAllProducts():
     return Product.query.all()
 
+def getProductsPerCategory(category_id):
+    return Product.query.filter_by(category_id = category_id).all()
+
 def productSerializer(product):
     return{
         "id": product.id,
