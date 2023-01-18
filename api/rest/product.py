@@ -46,6 +46,11 @@ def addProduct():
 def displayProducts():
     return jsonify([*map(productsController.productSerializer, productsController.getAllProducts())])
 
+@product.route('/')
+@product.route('')
+def p():
+    return jsonify([*map(productsController.productSerializer, productsController.getAllProducts())])
+
 
 @product.route('/<id>')
 @product.route('<id>')

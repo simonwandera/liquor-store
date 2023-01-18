@@ -24,7 +24,7 @@ def userCart():
 
         m = cartController.getActiveUserCart(get_jwt_identity())
         if m is None:
-            return {"msg": "You do not have an cart. Please click add to cart to create a new cart "}
+            return {"msg": "You do not have an cart. Please click add to cart to create a new cart ", "success": False}
         
         return jsonify(cartController.cartSerializer(m))
 

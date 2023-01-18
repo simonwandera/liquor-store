@@ -53,4 +53,3 @@ def getProductType(id):
             "success": False,
             "msg": str(e)
         },400
-
