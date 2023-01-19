@@ -8,7 +8,7 @@ from api import db
 
 def insert(checkout):
 
-    t_codes = ['QDRWE1234','SUPPORT']
+    t_codes = ['QDRWE1234','SUPPORT', 'CHE3409CK']
 
     if checkout.cart_id == "" or checkout.owner_id is None:
         raise Exception("Cart id is required")
@@ -30,5 +30,4 @@ def insert(checkout):
     cart.status = "CHECKEDOUT"
     db.session.commit()
 
-    
     return True

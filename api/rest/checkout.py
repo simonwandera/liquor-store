@@ -8,18 +8,17 @@ import jwt
 
 from api import create_app
 
-
 checkout = Blueprint('checkout', __name__, url_prefix='/checkout')
 
 from api.model.models import Checkout, Product_cart
 from api.controllers import cartController, checkoutController
-app = create_app()
 
+app = create_app()
 
 @checkout.route('/', methods=["POST"])
 @checkout.route('', methods=["POST"])
 @jwt_required()
-def checkout():
+def check_out():
 
     cart_id = request.json.get('cart_id')
     delivery_address = request.json.get('delivery_address')
