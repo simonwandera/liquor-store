@@ -31,25 +31,27 @@ def check_out():
     if cart:
         checkout = Checkout(cart_id = cart.id, delivery_address = delivery_address, receiver_name = receiver_name, contact = contact, alternative_contact = alternative_contact, transaction_code = transaction_code)
 
+        try:
+            checkoutController.insert(checkout)
+            return {
+                "success": True,
+                "msg": "Checked out successfully"
+            }
+
+        except Exception as e:
+            return{
+                "success": False,
+                "msg": str(e)
+            },400
+
+
     else:
          return {
-            "success": True,
-            "msg": "Checkouted out successfully"
+            "success": False,
+            "msg": "Cart is not available"
         }
 
     
-    try:
-        checkoutController.insert(checkout)
-        return {
-            "success": True,
-            "msg": "Checkouted out successfully"
-        }
-
-    except Exception as e:
-        return{
-            "success": False,
-            "msg": str(e)
-        },400
-
+    
 
 
