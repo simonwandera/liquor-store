@@ -106,11 +106,10 @@ def get_cart_total(user_id):
         total = 0
 
         for item in user_items:
-            price = productsController.read(item.product_id).buy_price
+            
+            price = (productsController.read(item.product_id).buy_price) * item.quantity
             total = total + price
 
         return total
     else:
         return None
-
-    
