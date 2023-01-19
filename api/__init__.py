@@ -74,9 +74,8 @@ def create_app(environment="dev"):
     from .rest.productCart import productCart as product_cart_blueprint
     app.register_blueprint(product_cart_blueprint)
 
-
-    
-
+    from .rest.checkout import checkout as checkout_blueprint
+    app.register_blueprint(checkout_blueprint)
 
 
     return app

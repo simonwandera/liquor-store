@@ -39,9 +39,20 @@ class Cart(db.Model):
     owner_id = db.Column(db.String(25), nullable=False)
     status = db.Column(db.String(25), nullable=False, default = 'ACTIVE')
     cart = db.relationship('Product_cart', backref='cart', lazy=True)
+    checkout = db.relationship('Checkout', backref='cart', lazy=True)
+
 
 class Product_cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cart_id  = db.Column(db.ForeignKey('cart.id'))
     product_id = db.Column(db.ForeignKey('product.id'))
     quantity = db.Column(db.Integer)
+
+class Checkout(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cart_id  = db.Column(db.ForeignKey('cart.id'))
+    delivery_address = db.Column(db.String(100), nullable=False)
+    receiver_name = db.Column(db.String(100), nullable=False)
+    contact = db.Column(db.String(100), nullable=False)
+    alternative_contact = db.Column(db.String(100), nullable=False)
+    transaction_code = db.Column(db.String(100), nullable=False)
