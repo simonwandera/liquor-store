@@ -86,9 +86,6 @@ def check_product_not_cart(product_id, user_id):
 
         products_in_cart = Product_cart.query.filter_by(cart_id = cart.id).all()
 
-        print("Where are you now")
-
-
         for i in products_in_cart:
             if i.product_id == product_id:
                 return False
@@ -103,12 +100,17 @@ def get_cart_total(user_id):
 
     cart = cartController.getActiveUserCart(user_id)
 
-    user_items = Product_cart.query.filter_by(cart_id = cart.id).all()
+    if cart:
+        user_items = Product_cart.query.filter_by(cart_id = cart.id).all()
 
-    total = 0
+        total = 0
 
-    for item in user_items:
-        price = productsController.read(item.product_id).buy_price
-        total = total + price
+        for item in user_items:
+            price = productsController.read(item.product_id).buy_price
+            total = total + price
 
-    return total
+        return total
+    else:
+        return None
+
+    

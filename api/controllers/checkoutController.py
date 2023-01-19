@@ -10,7 +10,7 @@ def insert(checkout):
 
     t_codes = ['QDRWE1234','SUPPORT', 'CHE3409CK']
 
-    if checkout.cart_id == "" or checkout.owner_id is None:
+    if checkout.cart_id == "" or checkout.cart_id is None:
         raise Exception("Cart id is required")
     if checkout.delivery_address == "" or checkout.delivery_address is None:
         raise Exception("Delivery_address is required")

@@ -78,14 +78,23 @@ token required
 http://127.0.0.1:5000/user/cart
 GET 
 Token required
-
-
-
-
-
-
-
-
-
+--------------------------------------------
 http://127.0.0.1:5000/user/items_in_cart
 token require
+
+-------------------
+
+
+http://127.0.0.1:5000/checkout
+
+
+POST
+token required
+
+
+
+
+
+
+
+

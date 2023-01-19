@@ -52,6 +52,9 @@ def items_in_cart():
 def cartTotal():
 
     total = cartController.get_cart_total(get_jwt_identity())
+
+    if total is None:
+        return {"success": False, "msg": "Cart not available"}
     
     return {"success": True, "total": total}
 

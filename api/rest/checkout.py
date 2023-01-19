@@ -20,14 +20,23 @@ app = create_app()
 @jwt_required()
 def check_out():
 
-    cart_id = request.json.get('cart_id')
     delivery_address = request.json.get('delivery_address')
     receiver_name = request.json.get('receiver_name')
     contact = request.json.get('contact')
     alternative_contact = request.json.get('alternative_contact')
     transaction_code = request.json.get('transaction_code')
 
-    checkout = Checkout(cart_id = cart_id, delivery_address = delivery_address, receiver_name = receiver_name, contact = contact, alternative_contact = alternative_contact, transaction_code = transaction_code)
+    cart = cartController.getActiveUserCart(get_jwt_identity())
+
+    if cart:
+        checkout = Checkout(cart_id = cart.id, delivery_address = delivery_address, receiver_name = receiver_name, contact = contact, alternative_contact = alternative_contact, transaction_code = transaction_code)
+
+    else:
+         return {
+            "success": True,
+            "msg": "Checkouted out successfully"
+        }
+
     
     try:
         checkoutController.insert(checkout)
